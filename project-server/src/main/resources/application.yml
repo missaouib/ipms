@@ -1,0 +1,118 @@
+spring:
+  datasource:
+    hikari:
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+        autoReconnect: true
+        useSSL: false
+        useUnicode: true
+        characterEncoding: utf8
+        connectTimeout: 5000
+        socketTimeout: 10000
+        useLegacyDatetimeCode: false
+        serverTimezone: UTC
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        globally_quoted_identifiers: true
+        jdbc:
+          time_zone: UTC
+          batch_size: 20
+          fetch_size: 20
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+        default_batch_fetch_size: 32
+        query:
+          in_clause_parameter_padding: true
+
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
+
+  security:
+    # for actuator authentication
+    user:
+      name: admin-user
+      password: '{noop}admin-pass'
+
+  flyway:
+    # Do NOT use flyway in production
+    enabled: false
+
+logging:
+  group:
+    tomcat:
+      - org.apache.catalina
+      - org.apache.coyote
+      - org.apache.tomcat
+  level:
+    tomcat: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - prometheus
+
+---
+spring:
+  profiles: prod
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.flyway.FlywayEndpointAutoConfiguration
+
+---
+spring:
+  profiles: dev
+
+  flyway:
+    enabled: true
+
+---
+spring:
+  profiles: local
+
+  datasource:
+    # serverTimezone=UTC url parameter로 설정하지 않으면 적용이 안됨.
+    url: jdbc:mysql://localhost:13306/dev?serverTimezone=UTC
+    username: test
+    password: test
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+  redis:
+    port: 16379
+
+  flyway:
+    enabled: true
+
+logging:
+  config: classpath:log4j2-spring-console.xml

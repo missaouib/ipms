@@ -1,0 +1,20 @@
+{
+  "codegenArguments": [
+    {
+      "option": "--api-tests",
+      "value": "false"
+    },
+    {
+      "option": "--api-docs",
+      "value": "false"
+    },
+    {
+      "option": "--model-tests",
+      "value": "false"
+    },
+    {
+      "option": "--model-docs",
+      "value": "false"
+    }
+  ]
+}

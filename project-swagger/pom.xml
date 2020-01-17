@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.bananayong</groupId>
+        <artifactId>project-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../project-parent</relativePath>
+    </parent>
+    <artifactId>project-swagger</artifactId>
+    <packaging>jar</packaging>
+    <description>Swagger module</description>
+
+    <properties>
+        <package.name>com.bananayong.project</package.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-scalars</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>adapter-rxjava2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger-codegen.version}</version>
+                <configuration>
+                    <inputSpec>${project.basedir}/api.yml
+                    </inputSpec>
+                    <configurationFile> ${project.basedir}/swagger-config.json</configurationFile>
+                    <language>java</language>
+                    <templateDirectory>${project.basedir}/templates</templateDirectory>
+                    <apiPackage>${package.name}.api</apiPackage>
+                    <modelPackage>${package.name}.model</modelPackage>
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                    <generateApiDocumentation>false</generateApiDocumentation>
+                    <configOptions>
+                        <bigDecimalAsString>true</bigDecimalAsString>
+                        <fullJavaUtil>true</fullJavaUtil>
+                        <dateLibrary>java8</dateLibrary>
+                        <java8>true</java8>
+                        <useRxJava2>true</useRxJava2>
+                        <useBeanValidation>true</useBeanValidation>
+                        <performBeanValidation>true</performBeanValidation>
+                        <useGzipFeature>true</useGzipFeature>
+                    </configOptions>
+                    <library>retrofit2</library>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.jknack</groupId>
+                        <artifactId>handlebars</artifactId>
+                        <version>${handlebars.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

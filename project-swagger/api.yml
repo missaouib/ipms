@@ -1,0 +1,36 @@
+swagger: "2.0"
+info:
+  description: "Project swagger for api specification"
+  version: "0.1.0"
+  title: "Project api"
+host: "localhost"
+basePath: "/"
+tags:
+  - name: "hello"
+    description: "Hello api for test"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /hello:
+    get:
+      tags:
+        - "hello"
+      summary: "Hello api"
+      description: "Hello api"
+      operationId: "sayHello"
+      produces:
+        - "text/plain"
+      parameters:
+        - in: "query"
+          name: "name"
+          type: "string"
+          description: "username"
+          required: true
+      responses:
+        400:
+          description: "Invalid input"
+        200:
+          description: "Hello message"
+          schema:
+            type: "string"
