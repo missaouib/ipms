@@ -41,7 +41,7 @@
         <spotbugs.version>3.1.12</spotbugs.version>
         <maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>8.27</checkstyle.version>
+        <checkstyle.version>8.29</checkstyle.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <fingsecbugs-maven-plugin.version>1.10.1</fingsecbugs-maven-plugin.version>
     </properties>
